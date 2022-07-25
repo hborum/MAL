@@ -1,0 +1,23 @@
+﻿module CompileConstants
+
+let var_ent  = "___ent"
+let var_newArr  =  "___NewArr"
+let var_newArrOpt  =  "___NewArrOpt"
+let var_isNull  =  "___IsNull"
+let var_addToArr  =  "___AddToArr"
+let var_projNumber = "___ProjNumber"
+let var_finalizeDiscount =  "___FinalizeDiscount"
+let var_finalizeDiscountValue = "___FinalizeDiscountValue"
+let var_realisedDiscountFactor =  "RealisedDiscountFactor"
+let var_realisedDiscountFactorContinuousPayments =  "RealisedDiscountFactorContinuousPayments"
+let var_realisedDiscountFactorContinuousPaymentsInclPolicyEndTimes =  "RealisedDiscountFactorContinuousPaymentsInclPolicyEndTimes"
+let var_projectionTimes = "ProjectionTimes"
+let var_global_output =  "globalTimeDependentValue"
+let var_group_output =  "groupAndTimeDependentValue"
+let var_policy_output = "policyAndTimeDependentValue"
+let var_global_scalars = "globalScalars"
+let var_scalarOutput = "scalarOutput"
+let var_cashFlowOutput = "cashFlowOutput"
+let var_group_scalars = "groupScalars"
+let var_policy_scalars = "policyScalars"
+

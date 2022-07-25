@@ -1,0 +1,897 @@
+
+data BaseEntity
+{
+    Input  : Input
+    Result : Result
+    Param  : Param
+    Name   : String
+}
+
+data Input {}
+
+data  Result {}
+
+data Param {}
+
+data AssetInput extends Input
+{
+    Weight : Float
+    InvestmentFee : Float
+}
+
+data Asset extends BaseEntity
+{
+    Weight  : Float
+    Input   : AssetInput
+    InvestmentFee : Float
+}
+
+data Global extends BaseEntity
+{
+    OutputDiscountFactor         : Func<Float, Float>
+    ProjectionTimes              : List<Float>
+    BiometricScenarioTimes       : List<Float>
+    Input 				         : GlobalInput
+    Param                        : GlobalParam
+    PremiumPayingCashFlows : Map<Policy,List<String>>
+    BenefitsReceivingCashFlows : Map<Policy,List<String>>
+    TimeZeroOutputIncluded : Bool
+    CalculationTime : Float
+    RealisedDiscountFactorContinuousPaymentsInclPolicyEndTimes : List<Pair<Float,Float>>
+    RealisedDiscountFactorContinuousPayments : List<Pair<Float,Float>>
+    RealisedDiscountFactor : Func<Float,Float>
+    timeSinceObservationDate     : Float
+
+    BaseIntensities_male             : BaseIntensities
+    BaseIntensities_female           : BaseIntensities
+
+    FreePolicyRules              : Map<String, FreePolicyRule>
+
+    CapitalTransferEquity 		 : Equity
+    InterestPolicies     		 : List<Policy>
+
+    BalanceDiscountFunctions 	 		 : Func<Float, Func<Float, Float>>
+    PreviousMarketInterestRateBalance 	 : MarketInterestRateBalance
+    MarketInterestRateBalance 	 		 : MarketInterestRateBalance
+    FinancialReport              		 : FinancialReport
+
+    WithProfitGroups         : List<ReserveGroup>
+    MarketRateInterestGroups : List<{Expense, Risk}>
+
+    PalTaxRate               : Float
+    InvestmentFeeForDiscounting : Float
+
+    BaseCapitalPALPaymentReserve 		 : Float, Output as PresentValueEndPoint (Debug, Average)
+    BaseCapital						     : Float, Output as CashFlow (Debug, Average)
+    BaseCapitalInvestmentReturnTaxAsset  : Float, Output as CashFlow (Debug, Average)
+    BaseCapitalPALPayment                : Float, Output as CashFlow (Debug, Average)
+    BaseCapitalInvestmentFee             : Float, Output as CashFlow (Debug, Average)
+    BaseCapitalInvestmentFeeReserve      : Float, Output as PresentValueEndPoint (Debug, Average)
+
+    Benchmark_times        : List<Float>
+    Level_male             : List<Float>
+    Level_female           : List<Float>
+    Trend_male             : List<Float>
+    Trend_female           : List<Float>
+
+    Observation_date           : Float
+    Exp_Model_beta1_male       : Float
+    Exp_Model_beta1_female     : Float
+    Exp_Model_beta2_male       : Float
+    Exp_Model_beta2_female     : Float
+    Exp_Model_beta3_male       : Float
+    Exp_Model_beta3_female     : Float
+
+    Gompertz_Makeham_A_male    : Float
+    Gompertz_Makeham_A_female  : Float
+    Gompertz_Makeham_B_male    : Float
+    Gompertz_Makeham_B_female  : Float
+    Gompertz_Makeham_C_male    : Float
+    Gompertz_Makeham_C_female  : Float
+
+    Gompertz_Makeham_scaling_Disability_male    : Float
+    Gompertz_Makeham_scaling_Disability_female  : Float
+
+    Exp_value_Reactivation_male   : Float
+    Exp_value_Reactivation_female : Float
+    Exp_value_FreePolicy_male     : Float
+    Exp_value_FreePolicy_female   : Float
+    Exp_value_Surrender_male      : Float
+    Exp_value_Surrender_female    : Float
+
+    RiskMarginProxies                 : Float
+    PresentValueFutureProfitsProxies  : Float
+    BaseFeeParameter                  : Float
+    FeeThreshold                      : Float
+    LowFeeParameter                   : Float
+
+    MarketInterestRateRiskMargin                 : Float
+    MarketInterestRateBonusPotential             : Float
+    MarketInterestRateLifeInsuranceLiabilities   : Float
+    MarketInterestRateProfitMargin               : Float
+    MarketInterestRateInsuranceLiabilities       : Float
+
+    InvestmentReturnTaxRate : Float
+    KRiskDividend           : Float
+    KExpense                : Float
+}
+
+data MarketInterestRateBalance
+{
+    RiskMargin               : Float
+    BonusPotential           : Float
+    LifeInsuranceLiabilities : Float
+    ProfitMargin             : Float
+    InsuranceLiabilities     : Float
+}
+
+data BaseIntensities
+{
+    Level             : List<Float>
+    Trend             : List<Float>
+
+    Exp_Model_beta1       : Float
+    Exp_Model_beta2       : Float
+    Exp_Model_beta3       : Float
+
+    Gompertz_Makeham_A    : Float
+    Gompertz_Makeham_B    : Float
+    Gompertz_Makeham_C    : Float
+
+    Gompertz_Makeham_scaling_Disability    : Float
+
+    Exp_value_Reactivation  : Float
+    Exp_value_FreePolicy    : Float
+    Exp_value_Surrender     : Float
+}
+
+data GlobalParam extends Param
+{
+    DiscountFactorName : String
+
+    Benchmark_times        : List<Float>
+    Level_male             : List<Float>
+    Level_female           : List<Float>
+    Trend_male             : List<Float>
+    Trend_female           : List<Float>
+
+    Observation_date_day       : Float
+    Exp_Model_beta1_male       : Float
+    Exp_Model_beta1_female     : Float
+    Exp_Model_beta2_male       : Float
+    Exp_Model_beta2_female     : Float
+    Exp_Model_beta3_male       : Float
+    Exp_Model_beta3_female     : Float
+
+    Gompertz_Makeham_A_male    : Float
+    Gompertz_Makeham_A_female  : Float
+    Gompertz_Makeham_B_male    : Float
+    Gompertz_Makeham_B_female  : Float
+    Gompertz_Makeham_C_male    : Float
+    Gompertz_Makeham_C_female  : Float
+
+    Gompertz_Makeham_scaling_Disability_male    : Float
+    Gompertz_Makeham_scaling_Disability_female  : Float
+
+    Exp_value_Reactivation_male   : Float
+    Exp_value_Reactivation_female : Float
+    Exp_value_FreePolicy_male     : Float
+    Exp_value_FreePolicy_female   : Float
+    Exp_value_Surrender_male      : Float
+    Exp_value_Surrender_female    : Float
+
+    RiskMarginProxies                 : Float
+    PresentValueFutureProfitsProxies  : Float
+    BaseFeeParameter                  : Float
+    FeeThreshold                      : Float
+    LowFeeParameter                   : Float
+
+    MarketInterestRateRiskMargin                 : Float
+    MarketInterestRateBonusPotential             : Float
+    MarketInterestRateLifeInsuranceLiabilities   : Float
+    MarketInterestRateProfitMargin               : Float
+    MarketInterestRateInsuranceLiabilities       : Float
+
+    InvestmentReturnTaxRate : Float
+    KRiskDividend           : Float
+    KExpense                : Float
+    InvestmentFeeForDiscounting  : Option<Float>
+}
+
+data GlobalInput extends Input
+{
+    BiometricScenarioTimes     : List<Float>
+    EconomicScenarioTimes      : List<Float>
+    BiometricScenario          : Func<Float, Func<Float, Float>>
+    DiscountFactors            : Map<String, InterpretedDiscountFactors>
+    CalculationTime            : Float
+    FreePolicyRules            : Map<String, FreePolicyRule>
+}
+
+data InterpretedDiscountFactors
+{
+    DiscountFactors         : Func<Float, Func<Float, Float>>
+    RealisedDiscountFactors : Func<Float, Func<Float, Float>>
+}
+
+data EquityParam extends Param
+{
+    PAL_asset : Float
+    ScalingFactorPremiumsToEquity   : Option<Float>
+    ScalingFactorBenefitsFromEquity : Option<Float>
+}
+
+data Equity extends BaseEntity
+{
+    Param                         : EquityParam
+    Input 						  : EquityInput
+    Result 						  : EquityResult
+    Assets                        : List<Asset>
+    Policies                      : List<Policy>
+    Reserve                       : Reserve
+    PremiumScale                  : Float
+    BenefitScale                  : Float
+    PAL                    		  : PALTax
+}
+
+data EquityInput extends Input
+{
+    Reserve : Reserve
+}
+
+data EquityResult extends Result
+{
+    PeriodPremiums : Float
+    PeriodBenefits : Float
+    IsCalculationEndTimeBeforePeriodEnd : Bool
+    PeriodActualExpense                 : Float
+    PeriodRealisedReturn                : Float
+    AccumulatedReserveAtEnd             : Reserve
+    PeriodInvestmentFee                 : Float
+}
+
+data Transfers
+{
+    Values      : List<Float>
+    TimePoints  : List<Float>
+}
+
+data CashFlow  extends BaseEntity
+{
+    Input               : CashFlowInput
+    Param               : CashFlowParam
+    Policy              : Policy
+    ScalingFactor       : Float
+    IsScaled            : Bool
+}
+
+data CashFlowInput extends Input
+{
+    Transfers : Transfers
+}
+
+data CashFlowParam extends Param
+{
+    Cash_flow_equity_type : Option<String>
+}
+
+data ActualExpense extends CashFlow { }
+
+data WeParam extends CashFlowParam
+{
+    Technical_interest_rate 	: Float
+    Technical_reserve        	: Float
+    IsScaled                    : Bool
+}
+
+data WithExpenses extends CashFlow
+{
+    TechnicalInterestRate 	: Float
+    RiskContributions   	: Map<String, Transfers>
+    Param               	: WeParam
+    TechnicalReserveSequence : IFunction
+    TechnicalReserve         : Float
+    Technical_interest_rate  : Float
+    Technical_reserve        : Float
+}
+
+data WithoutExpenses extends CashFlow
+{
+    TechnicalInterestRate 	: Float
+    RiskContributions   	: Map<String, Transfers>
+    IsScaled            	: Bool
+    Param               	: WeParam
+    TechnicalReserveSequence : IFunction
+    TechnicalReserve         : Float
+    Technical_interest_rate  : Float
+    Technical_reserve        : Float
+}
+
+data PolicyPaidExpense extends CashFlow {}
+
+data PolicyParam extends Param
+{
+    PAL_asset : Float
+}
+
+// Expenses of Policy is found in the Expense group
+data Policy extends BaseEntity
+{
+    Result : PolicyResult
+    Input  : PolicyInput
+    Reserve : Reserve
+    Param   : PolicyParam
+    CalculationEndTime : Float
+    CashFlows :  List<CashFlow>
+
+    PremiumPayingCashFlows : List<String>
+    BenefitReceivingCashFlows : List<String>
+
+    Groups       : List<Group>
+    RiskGroups   : List<Risk>
+    InterestGroup : Group
+    ExpenseGroup : Option<Expense>
+
+    Equity 				   : Option<Equity>
+    PAL                    : PALTax
+
+    PeriodCashFlow : Float
+    RealisedReturn : Float
+    PeriodRiskContributionPerGroup : Map<String, Float>
+    PeriodTechnicalExpenses : Expenses
+    PeriodActualExpense : Float
+
+    PolicyReserve          		   : Float, Output as CashFlow (Debug, Average)
+    ScaledCFTechReserve    		   : Float, Output as CashFlow (Debug, Average)
+    CFScalingFactor_Scaled 		   : Float, Output as CashFlow (Debug, Average)
+    BenefitsLessPremiumsReserves   : Float, Output as PresentValueMidPoint (Debug, Average)
+    BenefitsLessPremiums   		   : Float, Output as CashFlow (Debug, Average)
+    ActualExpense       		   : Float, Output as CashFlow (Debug, Average)
+    ActualExpenseReserve 		   : Float, Output as PresentValueEndPoint (Debug, Average)
+
+    TechnicalReservePerCashFlow : Map<String, Float>
+
+    // These three are only used by market rate interest Policies
+    ShareHolderFee : Float
+    TotalReserve   : Float
+    RiskMargin     : Float
+    ProfitMargin   : Float
+}
+
+data PALTax
+{
+    InvestmentReturnTaxAsset : Float
+    InvestmentReturnTaxPaymentForPeriod : Float
+}
+
+data OneStateParam extends PolicyParam
+{
+    Policy_Reserve : Float
+    Bonus_account  : Option<Float>
+}
+
+data OneStatePolicy extends Policy
+{
+    Param : OneStateParam
+    Result : OneStateResult
+}
+
+data OneStateResult extends PolicyResult
+{
+    AccumulatedReserveAtEnd : Reserve
+    PeriodCashFlow : Float
+    RealisedReturn : Float
+    PeriodRiskContributionPerGroup : Map<String, Float>
+    PeriodTechnicalExpenses  : Expenses
+    PeriodActualExpense : Float
+    PeriodInvestmentFee : Float
+    PeriodRealisedReturn : Float
+}
+
+data ThreeStateParam extends PolicyParam
+{
+    Age 							: Option<Float>
+    Gender  						: Option<String>
+    Policyholder_options_expiry_age : Option<Float>
+    Size 							: Option<Float>
+    Policy_Reserve_FreePolicy 		: Float
+    Policy_Reserve_Biometric 		: Float
+}
+
+data ThreeStateInput extends PolicyInput
+{
+    LumpedStateParameters  : Map<LumpedState, LumpedStateParameters>
+}
+
+data LumpedStateParameters
+{
+    InitialProbability : Float
+    InitialStateProbabilities : Map<State, Float>
+}
+
+data ThreeStateResult extends PolicyResult
+{
+    LumpedStateResult  : Map<LumpedState, LumpedStateResult>
+}
+
+data LumpedStateResult
+{
+    AccumulatedReserveAtEnd           : Reserve
+    BenefitsLessPremiumsCashFlow      : Float
+    SurrenderCashFlow                 : Float
+    PeriodRealisedReturn              : Float
+    PeriodRiskContributionPerGroup    : Map<String, Float>
+    PeriodTechnicalExpenses           : Expenses
+    ScalingFactors                    : Map<String, Float>
+    Probability                       : Float
+    StateProbabilities                : Map<State, Float>
+}
+
+data ThreeStatePolicy extends Policy
+{
+    Param 				: ThreeStateParam
+    Input 				: ThreeStateInput
+    Result 				: ThreeStateResult
+    Size 				: Float
+    FreePolicyFraction 	: IFunction
+    Age 		 		: Float
+    Gender 		 		: String
+    ExpiryTime 	 		: Float
+    LumpedStates 		: Map<LumpedState, ThreeStateState>
+}
+
+data ThreeStateState
+{
+    State   : LumpedState
+    Reserve : Reserve
+    CashFlows : List<CashFlow>
+    DestinationLumpedStateIntensity : Map<LumpedStateWithSurrender, IFunction>
+    IntensitiesBiometric : Map<Pair<State, State>, IFunction>
+    AverageScalingFactor : Float
+    WeightedTechinalReserve 		 : Float
+    Probability  : Float
+}
+
+data PolicyResult extends Result
+{
+    IsCalculationEndTimeBeforePeriodEnd : Bool
+}
+
+data Expenses
+{
+    CashFlowExpense : Option<Float>
+    FreePolicyFee   : Option<Float>
+    SurrenderFee    : Option<Float>
+    PolicyFee       : Option<Float>
+    ReserveExpense  : Option<Float>
+}
+
+data PolicyInput extends Input
+{
+    CalculationEndTime : Float
+}
+
+data Group extends BaseEntity
+{
+    Result   : GroupResult
+    Assets   : List<Asset>
+    Policies : List<Policy>
+}
+
+data ReserveParam extends Param
+{
+    PAL_asset 				 : Float
+    RiskMargin               : Float
+    IndividualBonusPotential : Float
+    CollectiveBonusPotential : Float
+    LifeInsuranceLiabilities : Float
+    GuaranteedBenefit        : Float
+    ProfitMargin             : Float
+    InsuranceLiabilities     : Float
+    Reimbursement            : Float
+}
+
+data ReserveGroup extends Group
+{
+    Param               : ReserveParam
+    Reserve             : Reserve
+    PAL                 : PALTax
+    ReserveInclIRTA     : Float
+    PreviousBalance     : SingleBalance
+    Balance             : SingleBalance
+
+    TransferToCapitalBase         	: Float, Output as CashFlow (Debug)
+    TransferToCapitalBaseReserves 	: Float, Output as PresentValueEndPoint (Debug)
+    TransferFromCapitalBase         : Float, Output as CashFlow (Debug)
+    TransferFromCapitalBaseReserves : Float, Output as PresentValueEndPoint (Debug)
+    PALPayment        				: Float, Output as CashFlow (Debug)
+    PALPaymentReserve 				: Float, Output as PresentValueEndPoint (Debug)
+    InvestmentReturnTaxAsset        : Float, Output as CashFlow (Debug)
+    GroupReserve					: Float, Output as CashFlow (Debug)
+    InvestmentFee             		: Float, Output as CashFlow (Debug)
+    InvestmentFeeReserve      		: Float, Output as PresentValueEndPoint (Debug)
+}
+
+data SingleBalance
+{
+    RiskMargin : Float
+    IndividualBonusPotential  : Float
+    CollectiveBonusPotential  : Float
+    LifeInsuranceLiabilities  : Float
+    BaseCapitalFee  : Float
+    BaseCapitalInjectionForPeriod  : Float
+    GuaranteedBenefit  : Float
+    ProfitMargin  : Float
+    InsuranceLiabilities  : Float
+    Reimbursement  : Float
+}
+
+data FinancialReport
+{
+    PremiumsLessBenefits 				: Float
+    RealisedReturn 						: Float
+    ActualExpenses 						: Float
+    ChangeInLifeInsuranceLiabilities 	: Float
+    ChangeInProfitMargin 				: Float
+    AnnualResult                        : Float
+}
+
+data InterestParam extends ReserveParam
+{
+    K 				  : Float
+    K2 				  : Float
+    Surrender_charge  : Option<Float>
+    RiskMarginProxies : Float
+    PresentValueFutureProfitsProxies : Float
+}
+
+data Interest extends ReserveGroup
+{
+    Input           			: ReserveGroupInput
+    Param           			: InterestParam
+    SurrenderCharge 			: Option<Float>, Output as CashFlow (Debug)
+    DepositRate     			: Float, Output as CashFlow (Debug)
+    ScalingFactor   			: Float
+    SumOfPolicyReserves         : Float
+
+    GY								: Float, Output as CashFlow (Debug)
+    RiskMargin						: Float, Output as CashFlow (Debug)
+    ProfitMargin					: Float, Output as CashFlow (Debug)
+    IndividualBonusPotential		: Float, Output as CashFlow (Debug)
+    CollectiveBonusPotential		: Float, Output as CashFlow (Debug)
+    Reimbursement					: Float, Output as CashFlow (Debug)
+}
+
+data RiskParam extends ReserveParam
+{
+    RiskContributionWeights : Float
+    K2Risk                  : Float
+}
+
+data Risk extends ReserveGroup
+{
+    Input 			       : ReserveGroupInput
+    RiskDividend           : Float, Output as CashFlow (Debug, Average)
+    LumpedRiskDividend     : Map<LumpedState, Float>
+    RiskContributionWeight : Float
+    Param                  : RiskParam
+}
+
+data ExpenseParam extends ReserveParam
+{
+    K2Expense				 			: Float
+    Technical_reserve_expense   		: Option<Float>
+    Technical_cash_flow_expense       	: Option<Float>
+    Technical_free_policy_fee_expense 	: Option<Float>
+    Technical_surrender_fee_expense   	: Option<Float>
+}
+
+data Expense extends ReserveGroup
+{
+    Input                 : ReserveGroupInput
+    ExpenseDividends      : Expenses
+    LumpedExpenseDividends : Map<LumpedState, Expenses>
+    TechnicalExpense      : Expenses
+    Param                 : ExpenseParam
+    ExpenseDividend       : Float, Output as CashFlow (Debug, Average)
+}
+
+data ReserveGroupInput extends Input
+{
+    Reserve 			: Reserve
+}
+
+data MarketRateInterest extends Group {}
+
+data GroupResult extends Result
+{
+    IsCalculationEndTimeBeforePeriodEnd : Bool
+    PeriodActualExpense                 : Float
+    PeriodRealisedReturn                : Float
+    PeriodInvestmentFee                 : Float
+    AccumulatedReserveAtEnd             : Reserve
+}
+
+data Projection
+{
+    PeriodStartTime  : Float
+    PeriodEndTime 	 : Float
+    PeriodLength 	 : Float
+}
+
+action init()
+{
+    let standardDiscountCurve = Global.Input.DiscountFactors(Global.Param.DiscountFactorName)
+    Global.BalanceDiscountFunctions = standardDiscountCurve.DiscountFactors
+    Global.OutputDiscountFactor = standardDiscountCurve.RealisedDiscountFactors(1.0)
+    Global.ProjectionTimes = [2]
+    Global.BiometricScenarioTimes = [3]
+    Global.timeSinceObservationDate = 2
+    Global.BaseIntensities_male = inten()
+    Global.BaseIntensities_female = inten()
+    Global.FreePolicyRules = Global.Input.FreePolicyRules
+    Global.CapitalTransferEquity = single(Equities)
+    Global.InterestPolicies = Policies
+    Global.PreviousMarketInterestRateBalance =
+        new MarketInterestRateBalance {
+            RiskMargin                = 2
+        ,    BonusPotential           = 0
+        ,    LifeInsuranceLiabilities = 0
+        ,    ProfitMargin             = 0
+        ,    InsuranceLiabilities     = 0
+        }
+    Global.MarketInterestRateBalance = Global.PreviousMarketInterestRateBalance
+    Global.FinancialReport = finReport()
+    Global.WithProfitGroups = Groups:ReserveGroup
+    Global.MarketRateInterestGroups = Groups:{Expense, Risk}
+    Global.PalTaxRate = 2
+    Global.InvestmentFeeForDiscounting = 2
+    Global.BaseCapitalPALPayment = 2
+    Global.BaseCapitalPALPaymentReserve = 2
+    Global.BaseCapital = 0
+    Global.BaseCapitalInvestmentFee = 2
+    Global.BaseCapitalInvestmentFeeReserve = 2
+    Global.BaseCapitalInvestmentReturnTaxAsset = 2
+    Global.Benchmark_times = [2]
+    Global.Level_male = [3]
+    Global.Level_female = [3]
+    Global.Trend_male = [3]
+    Global.Trend_female = [3]
+    Global.Observation_date = 0
+    Global.Exp_Model_beta1_male       = 0
+    Global.Exp_Model_beta1_female = 0
+    Global.Exp_Model_beta2_male = 0
+    Global.Exp_Model_beta2_female = 0
+    Global.Exp_Model_beta3_male = 0
+    Global.Exp_Model_beta3_female = 0
+    Global.Gompertz_Makeham_A_male = 0
+    Global.Gompertz_Makeham_A_female = 0
+    Global.Gompertz_Makeham_B_male = 0
+    Global.Gompertz_Makeham_B_female = 0
+    Global.Gompertz_Makeham_C_male = 0
+    Global.Gompertz_Makeham_C_female = 0
+    Global.Gompertz_Makeham_scaling_Disability_male = 0
+    Global.Gompertz_Makeham_scaling_Disability_female = 0
+    Global.Exp_value_Reactivation_male = 0
+    Global.Exp_value_Reactivation_female = 0
+    Global.Exp_value_FreePolicy_male = 0
+    Global.Exp_value_FreePolicy_female = 0
+    Global.Exp_value_Surrender_male = 0
+    Global.Exp_value_Surrender_female = 0
+    Global.RiskMarginProxies = 0
+    Global.PresentValueFutureProfitsProxies = 0
+    Global.BaseFeeParameter = 0
+    Global.FeeThreshold = 0
+    Global.LowFeeParameter = 0
+    Global.MarketInterestRateRiskMargin = 0
+    Global.MarketInterestRateBonusPotential = 0
+    Global.MarketInterestRateLifeInsuranceLiabilities = 0
+    Global.MarketInterestRateProfitMargin = 0
+    Global.MarketInterestRateInsuranceLiabilities = 0
+    Global.InvestmentReturnTaxRate = 0
+    Global.KRiskDividend = 0
+    Global.KExpense = 0
+    Global.PremiumPayingCashFlows = createMap([] : List<Pair<Policy,List<String>>>)
+    Global.BenefitsReceivingCashFlows = createMap([] : List<Pair<Policy,List<String>>>)
+    Global.TimeZeroOutputIncluded = false
+    Global.CalculationTime = 0.0
+    Global.RealisedDiscountFactorContinuousPaymentsInclPolicyEndTimes = [] : List<Pair<Float,Float>>
+    Global.RealisedDiscountFactorContinuousPayments = [] : List<Pair<Float,Float>>
+    Global.RealisedDiscountFactor = Global.Input.BiometricScenario(0)
+
+    update cf in CashFlows
+    {
+        cf.IsScaled = true
+        cf.ScalingFactor = 1
+    }
+
+    update cf in CashFlows:{WithExpenses, WithoutExpenses}
+    {
+        cf.TechnicalInterestRate = 0
+        cf.RiskContributions = createMap([{"1",new Transfers {Values = [2] , TimePoints = [3]}}])
+        cf.TechnicalReserveSequence = linearInterpolation([2] , [3] )
+        cf.TechnicalReserve = 0
+        cf.Technical_interest_rate  = 0
+        cf.Technical_reserve        = 0
+    }
+
+    update equity in Equities
+    {
+        equity.Reserve <| 0
+        equity.PremiumScale = 0
+        equity.BenefitScale = 0
+        equity.PAL = new PALTax
+            {
+                InvestmentReturnTaxAsset = 0,
+                InvestmentReturnTaxPaymentForPeriod = 0
+            }
+    }
+
+    update p in Policies
+    {
+        p.Reserve <| 0
+        p.CalculationEndTime = 2
+        p.PremiumPayingCashFlows = [""]
+        p.BenefitReceivingCashFlows = [""]
+        p.PAL = emptyPal()
+        p.PeriodCashFlow = 2
+        p.RealisedReturn = 2
+        p.PeriodRiskContributionPerGroup = createMap([{"asd",2}])
+        p.PeriodTechnicalExpenses = emptyExpenses()
+        p.PeriodActualExpense = 2
+        p.PolicyReserve = 2
+        p.ScaledCFTechReserve = 3
+        p.CFScalingFactor_Scaled = 2
+        p.BenefitReceivingCashFlows = ["2"]
+        p.BenefitsLessPremiums = 3
+        p.BenefitsLessPremiumsReserves = 2
+        p.ActualExpense = 3
+        p.ActualExpenseReserve = 4
+        p.TechnicalReservePerCashFlow = createMap([{"ads",3}])
+        p.ShareHolderFee = 0
+        p.TotalReserve   = 0
+        p.RiskMargin     = 0
+        p.ProfitMargin   = 0
+    }
+
+    update p3 in Policies:ThreeStatePolicy
+    {
+        p3.Size = 1
+        p3.FreePolicyFraction = linearInterpolation([2] , [3])
+        p3.Age = 2
+        p3.Gender = "female"
+        p3.ExpiryTime = 2
+        p3.LumpedStates = createMap([{LumpedStateBiometric , empThreeStateState(p3.CashFlows) }])
+    }
+
+    update grp in Groups:ReserveGroup
+    {
+        grp.Reserve <| 0
+        grp.PAL = emptyPal()
+        grp.ReserveInclIRTA = 0
+        grp.PreviousBalance = empBalance()
+        grp.Balance = empBalance()
+        grp.TransferFromCapitalBase = 0
+        grp.TransferToCapitalBase = 0
+        grp.TransferFromCapitalBaseReserves = 0
+        grp.TransferToCapitalBaseReserves = 0
+        grp.PALPayment = 0
+        grp.PALPaymentReserve = 0
+        grp.InvestmentReturnTaxAsset = 0
+        grp.GroupReserve = 0
+        grp.InvestmentFee = 0
+        grp.InvestmentFeeReserve = 0
+    }
+
+    update iGrp in Groups:Interest
+    {
+        iGrp.SurrenderCharge = Some 0
+        iGrp.DepositRate = 0
+        iGrp.ScalingFactor = 0
+        iGrp.SumOfPolicyReserves = 0
+        iGrp.GY = 2
+        iGrp.RiskMargin = 0
+        iGrp.ProfitMargin = 0
+        iGrp.IndividualBonusPotential = 0
+        iGrp.CollectiveBonusPotential = 0
+        iGrp.Reimbursement = 0
+    }
+
+    update rGrp in Groups:Risk
+    {
+        do initRiskGrp(rGrp)
+    }
+
+    do initExpenseGroups()
+}
+
+action manage()
+{}
+
+action initRiskGrp(rGrp : Risk)
+{
+    rGrp.RiskDividend = 0
+    rGrp.LumpedRiskDividend = createMap([{LumpedStateBiometric,2}])
+    rGrp.RiskContributionWeight = 0
+}
+
+action initExpenseGroups()
+{
+    update eGrp in Groups:Expense
+    {
+        eGrp.ExpenseDividend = 0
+        eGrp.TechnicalExpense = emptyExpenses()
+        eGrp.ExpenseDividends = emptyExpenses()
+        eGrp.LumpedExpenseDividends = createMap([{LumpedStateBiometric,emptyExpenses()}])
+    }
+}
+
+
+fun inten() =
+    new BaseIntensities
+    {	Level                   = Global.Param.Level_male
+    ,   Trend                   = Global.Param.Trend_male
+    ,   Exp_Model_beta1         = Global.Param.Exp_Model_beta1_male
+    ,	Exp_Model_beta2         = Global.Param.Exp_Model_beta2_male
+    ,	Exp_Model_beta3         = Global.Param.Exp_Model_beta3_male
+    ,	Gompertz_Makeham_A      = Global.Param.Gompertz_Makeham_A_male
+    ,	Gompertz_Makeham_B      = Global.Param.Gompertz_Makeham_B_male
+    ,	Gompertz_Makeham_C      = Global.Param.Gompertz_Makeham_C_male
+    ,	Gompertz_Makeham_scaling_Disability = Global.Param.Gompertz_Makeham_scaling_Disability_male
+    ,	Exp_value_Reactivation  = Global.Param.Exp_value_Reactivation_male
+    ,	Exp_value_FreePolicy    = Global.Param.Exp_value_FreePolicy_male
+    ,	Exp_value_Surrender     = Global.Param.Exp_value_Surrender_male
+    }
+
+fun finReport() =
+    new FinancialReport {
+        PremiumsLessBenefits 				= 0
+    ,    RealisedReturn 					= 0
+    ,    ActualExpenses 					= 0
+    ,    ChangeInLifeInsuranceLiabilities   = 0
+    ,    ChangeInProfitMargin 			    = 0
+    ,    AnnualResult                       = 0
+    }
+
+fun emptyPal() = new PALTax
+    {
+        InvestmentReturnTaxAsset = 0,
+        InvestmentReturnTaxPaymentForPeriod = 0
+    }
+
+fun emptyExpenses() =
+    new Expenses
+    {
+          CashFlowExpense = None : Float
+        , FreePolicyFee   = None : Float
+        , SurrenderFee    = None : Float
+        , PolicyFee       = None : Float
+        , ReserveExpense  = None : Float
+    }
+
+fun empThreeStateState(cfs : List<CashFlow>) =
+    new ThreeStateState
+    {
+        State   = LumpedStateBiometric, //: LumpedState
+        Reserve = 0, //: Reserve
+        CashFlows = cfs, //: List<CashFlow>
+        DestinationLumpedStateIntensity =  createMap([{LumpedStateSurrenderBiometric , linearInterpolation([2] , [3])} ]),
+        IntensitiesBiometric = createMap([{{StateActive,StateActive}, linearInterpolation([2] , [3])}] ), //: Map<Pair<State, State>, IFunction>
+        AverageScalingFactor = 0, //: Float
+        WeightedTechinalReserve 		 = 0, //: Float
+        Probability  = 0 //: Float
+    }
+
+fun empBalance() =
+    new SingleBalance {
+        RiskMargin = 0,
+        IndividualBonusPotential  = 0,
+        CollectiveBonusPotential  = 0,
+        LifeInsuranceLiabilities  = 0,
+        BaseCapitalFee  = 0,
+        BaseCapitalInjectionForPeriod  = 0,
+        GuaranteedBenefit  = 0,
+        ProfitMargin  = 0,
+        InsuranceLiabilities  = 0,
+        Reimbursement  = 0
+    }

@@ -1,0 +1,72 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: AMLU
+file_extensions:
+  - aml
+scope:  source.aml
+contexts:
+  main: 
+    - match: \b(if|let|else|match|with|for|while|compute|end|update|set|in|then|where)\b
+      scope: keyword.control
+
+    - match: \bfun\b
+      scope: keyword
+      push: fundec
+
+    - match: \b[.:\(\)=]\b
+      scope: punctuation
+
+    - match: \b[abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ]+\b
+      scope: variable
+
+    - match: \b[0-9]+\b
+      scope: constant.numeric
+
+    - match: /\*
+      scope: comment
+      push: comment
+
+  fundec:
+    - match: \b[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+\b
+      scope: variable.function
+
+    - match: \(
+      scope: punctuation
+      push: funParam
+
+    - match: =
+      scope: punctuation
+      pop: true
+
+  funParam:
+    - match: \b[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+\b
+      scope: variable.parameter
+
+    - match: ":"
+      scope: punctuation
+      push: funType
+
+    - match: \)
+      scope: punctuation.accessor
+      pop: true
+
+  funType:
+    - match: \b[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+\b
+      scope: entity.name.type
+
+    - match: "[,]"
+      scope: punctuation
+      pop: true
+
+    - match: "[)]"
+      scope: punctuation
+      set: main
+
+  comment: 
+    - match: \*/
+      scope: comment
+      pop: true
+
+    - match: .
+      scope: comment
